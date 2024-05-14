@@ -38,30 +38,25 @@
     let received = document.getElementById("received");
 
     brokerBtn.addEventListener("click", function() {
+
         const body = {
             method: 'POST',
         }
 
         fetch("http:\/\/localhost:8080/broker", body)
-            .then((response) => {
-                if (!response.ok) {
-                    throw new Error('Network response was not ok');
-                }
-                return response.text();
-            })
-            .then((data) => {
-                try {
-                    let parsedData = JSON.parse(data);
-                    // rest of your code
-                } catch (error) {
-                    console.error('Parsing error: ', error);
-                    output.innerHTML += "<br><br>Parsing error: " + error;
-                }
-            })
-            .catch((error) => {
-                console.error('Fetch error: ', error);
-                output.innerHTML += "<br><br>Fetch error: " + error;
-            })
+        .then((response) => response.json())
+        .then((data) => {
+            sent.innerHTML ="empty post request";
+            received.innerHTML = JSON.stringify(data, undefined, 4);
+            if (data.error) {
+                console.log(data.message);
+            } else {
+                output.innerHTML += `<br><strong>Response from broker service</strong>: ${data.message}`;
+            }
+        })
+        .catch((error) => {
+            output.innerHTML += "<br><br>Error: " + error;
+        })
     })
         
     </script>
