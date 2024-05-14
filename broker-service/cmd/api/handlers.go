@@ -11,7 +11,7 @@ type jsonResponse struct {
 	Data    any    `json:"data,omitempty"`
 }
 
-func (c Config) Broker(w http.ResponseWriter, r *http.Request) {
+func (c *Config) Broker(w http.ResponseWriter, r *http.Request) {
 	payload := jsonResponse{
 		Error:   false,
 		Message: "Broker service is running",
@@ -19,6 +19,6 @@ func (c Config) Broker(w http.ResponseWriter, r *http.Request) {
 
 	w.Header().Set("Content-Type", "application/json")
 	w.WriteHeader(http.StatusOK)
-	_ = json.NewEncoder(w).Encode(payload)
-
+	bytes, _ := json.MarshalIndent(payload, "", "\t")
+	w.Write(bytes)
 }
