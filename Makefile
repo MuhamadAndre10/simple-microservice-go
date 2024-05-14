@@ -24,28 +24,23 @@ down:
 ## build_broker: builds the broker binary as a linux executable
 build_broker:
 	@echo "Building broker binary..."
-	chdir ./broker-service && set GOOS=linux&& set GOARCH=amd64&& set CGO_ENABLED=0 && go build -o ${BROKER_BINARY} ./cmd/api
+	chdir ./broker-service && set GOOS=linux&& set GOARCH=amd64&& set CGO_ENABLED=0 && go build -o ../temp/${BROKER_BINARY} ./cmd/api
 	@echo "Done!"
 
 ## build_front: builds the frone end binary
 build_front:
 	@echo "Building front end binary..."
-	chdir ./front-end && set CGO_ENABLED=0&& set GOOS=windows&& go build -o ${FRONT_END_BINARY} ./cmd/web
+	chdir ./front-end && set CGO_ENABLED=0&& set GOOS=windows&& go build -o ../temp/${FRONT_END_BINARY} ./cmd/web
 	@echo "Done!"
 
 ## start: starts the front end
 start: build_front
 	@echo "Starting front end"
-	cd ./front-end && ./${FRONT_END_BINARY} &
+	chdir ./temp && ${FRONT_END_BINARY} &
 
 ## stop: stop the front end
 stop:
 	@echo "Stopping front end..."
-	@-pkill -SIGTERM -f "./${FRONT_END_BINARY}"
+	@taskkill /IM "${FRONT_END_BINARY}" /F
 	@echo "Stopped front end!"
 
-clean:
-	@echo "Cleaning up..."
-	rm -f ${BROKER_BINARY}
-	rm -f ${FRONT_END_BINARY}
-	@echo "Done!"
