@@ -4,7 +4,6 @@ import (
 	"database/sql"
 	"fmt"
 	"github.com/MuhamadAndre10/simple-microservice/auth-service/data"
-	"github.com/joho/godotenv"
 	"log"
 	"net/http"
 	"os"
@@ -26,6 +25,10 @@ type Config struct {
 
 func main() {
 	log.Println("Starting authentication service")
+	//err := godotenv.Load("config.env")
+	//if err != nil {
+	//	log.Println("Error loading .env file")
+	//}
 
 	// connect to DB
 	conn := connectToDB()
@@ -65,11 +68,6 @@ func openDB(dsn string) (*sql.DB, error) {
 }
 
 func connectToDB() *sql.DB {
-
-	err := godotenv.Load("config.env")
-	if err != nil {
-		log.Println("Error loading .env file")
-	}
 
 	dsn := os.Getenv("DSN")
 

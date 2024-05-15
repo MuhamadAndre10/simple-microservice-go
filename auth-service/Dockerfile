@@ -1,4 +1,7 @@
-FROM ubuntu:latest
-LABEL authors="andre"
+FROM alpine:latest
 
-ENTRYPOINT ["top", "-b"]
+RUN mkdir /app
+
+COPY ./temp/authApp /app
+
+CMD ["/app/authApp"]

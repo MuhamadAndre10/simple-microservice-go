@@ -4,3 +4,4 @@
 *.exe
 ./auth-service/*.env
 
+/db-data
