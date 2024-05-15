@@ -1,7 +1,7 @@
 /temp
+/db-data
 
 # files
 *.exe
 ./auth-service/*.env
 
-/db-data
