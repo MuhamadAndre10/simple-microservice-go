@@ -2,4 +2,5 @@
 
 # files
 *.exe
+./auth-service/*.env
 
