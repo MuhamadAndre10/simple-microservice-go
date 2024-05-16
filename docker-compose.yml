@@ -1,3 +1,5 @@
+
+
 services:
   broker-service:
     build:
@@ -13,12 +15,14 @@ services:
     depends_on:
       postgres:
         condition: service_healthy
+    env_file:
+      - .env
     build:
       context: .
       dockerfile: auth-service/Dockerfile
     restart: always
     environment:
-      DSN: "host=postgres user=postgres password=root dbname=users sslmode=disable timezone=UTC connect_timeout=5"
+      DSN: ${DSN}
     ports:
       - 8081:80
     deploy:
