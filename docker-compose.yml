@@ -11,13 +11,14 @@ services:
       replicas: 1
   auth-service:
     depends_on:
-      - postgres
+      postgres:
+        condition: service_healthy
     build:
       context: .
       dockerfile: auth-service/Dockerfile
     restart: always
     environment:
-      DSN: "host=postgres port=5432 user=postgres password=root dbname=users sslmode=disable timezone=UTC connect_timeout=5"
+      DSN: "host=postgres user=postgres password=root dbname=users sslmode=disable timezone=UTC connect_timeout=5"
     ports:
       - 8081:80
     deploy:
@@ -34,5 +35,7 @@ services:
       POSTGRES_USER: postgres
       POSTGRES_PASSWORD: root
       POSTGRES_DB: users
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready"]
     volumes:
       - ./db-data/pg/:/var/lib/postgresql/data/

@@ -41,7 +41,7 @@ build_front:
 	@echo "Done!"
 
 ## start: starts the front end
-start: build_front
+start:
 	@echo "Starting front end"
 	chdir ./temp && ${FRONT_END_BINARY} &
 

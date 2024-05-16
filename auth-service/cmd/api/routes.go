@@ -8,7 +8,7 @@ import (
 	"github.com/go-chi/chi/v5"
 )
 
-func (app *Config) routes() http.Handler {
+func (c *Config) routes() http.Handler {
 	mux := chi.NewRouter()
 
 	// specify who is allowed to connect
@@ -24,7 +24,7 @@ func (app *Config) routes() http.Handler {
 	// health check
 	mux.Use(middleware.Heartbeat("/ping"))
 
-	mux.Post("/authenticate", app.Authenticate)
+	mux.Post("/authenticate", c.Authenticate)
 
 	return mux
 }
