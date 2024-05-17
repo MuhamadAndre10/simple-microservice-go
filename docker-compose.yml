@@ -1,5 +1,5 @@
 
-
+name: 'microservices'
 services:
   broker-service:
     build:
