@@ -2,9 +2,12 @@ package main
 
 import (
 	"context"
+	"fmt"
+	"github.com/MuhamadAndre10/simple-microservices/logger-service/data"
 	"go.mongodb.org/mongo-driver/mongo"
 	"go.mongodb.org/mongo-driver/mongo/options"
 	"log"
+	"net/http"
 	"time"
 )
 
@@ -16,6 +19,7 @@ const (
 )
 
 type Config struct {
+	Models data.Models
 }
 
 var client *mongo.Client
@@ -38,7 +42,26 @@ func main() {
 		}
 	}()
 
+	app := Config{
+		Models: data.New(client),
+	}
+
+	go app.serve()
 }
+
+func (c *Config) serve() {
+	srv := &http.Server{
+		Addr:    fmt.Sprintf(":%s", webPort),
+		Handler: c.routes(),
+	}
+
+	err := srv.ListenAndServe()
+
+	if err != nil {
+		log.Panic(err)
+	}
+}
+
 func connectToMongo() (*mongo.Client, error) {
 	clientOptions := options.Client().ApplyURI(mongoURI)
 	clientOptions.SetAuth(options.Credential{
