@@ -2,6 +2,7 @@ package main
 
 import (
 	"github.com/MuhamadAndre10/simple-microservices/logger-service/data"
+	"github.com/google/uuid"
 	"net/http"
 )
 
@@ -17,8 +18,11 @@ func (c *Config) WriteLog(w http.ResponseWriter, r *http.Request) {
 	// read json into var
 	_ = c.readJSON(w, r, &requestPayload)
 
+	id := uuid.New().String()
+
 	// insert data
 	event := data.LogEntry{
+		ID:   id,
 		Name: requestPayload.Name,
 		Data: requestPayload.Data,
 	}

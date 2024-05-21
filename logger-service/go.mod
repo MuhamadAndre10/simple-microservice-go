@@ -5,6 +5,7 @@ go 1.22.1
 require (
 	github.com/go-chi/chi/v5 v5.0.12 // indirect
 	github.com/golang/snappy v0.0.1 // indirect
+	github.com/google/uuid v1.6.0 // indirect
 	github.com/klauspost/compress v1.13.6 // indirect
 	github.com/montanaflynn/stats v0.0.0-20171201202039-1bf9dbcd8cbe // indirect
 	github.com/xdg-go/pbkdf2 v1.0.0 // indirect

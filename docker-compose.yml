@@ -68,6 +68,10 @@ services:
       MONGO_INITDB_ROOT_USERNAME: root
       MONGO_INITDB_ROOT_PASSWORD: root
     healthcheck:
-      test: ["CMD-SHELL", "mongo --eval 'db.runCommand({ connectionStatus: 1 })'"]
+      test: echo 'db.runCommand({find:"logs.devUser"}).ok' | mongosh --authenticationDatabase admin --host localhost -u root -p root admin --quiet | grep -q 1
+      interval: 10s
+      timeout: 10s
+      retries: 3
+      start_period: 20s
     volumes:
       - ./db-data/mongo/:/data/db/

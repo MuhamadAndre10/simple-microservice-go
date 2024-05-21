@@ -61,23 +61,10 @@ func main() {
 	}
 }
 
-//func (c *Config) serve() {
-//	srv := &http.Server{
-//		Addr:    fmt.Sprintf(":%s", webPort),
-//		Handler: c.routes(),
-//	}
-//
-//	err := srv.ListenAndServe()
-//
-//	if err != nil {
-//		log.Panic(err)
-//	}
-//}
-
 func connectToMongo() (*mongo.Client, error) {
 	clientOptions := options.Client().ApplyURI(mongoURI)
 	clientOptions.SetAuth(options.Credential{
-		Username: "admin",
+		Username: "root",
 		Password: "root",
 	})
 
