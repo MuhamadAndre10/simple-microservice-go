@@ -55,7 +55,7 @@ services:
       MAIL_DOMAIN: 'localhost'
       MAIL_PORT: 1025
       MAIL_HOST: 'mailpit'
-      MAIL_ENCRYPTION: 'none'
+      MAIL_ENCRYPTION: 'tls'
       MAIL_USERNAME: ''
       MAIL_PASSWORD: ''
       MAIL_NAME: 'john doe'

@@ -53,7 +53,7 @@ func (app *Config) HandleSubmission(w http.ResponseWriter, r *http.Request) {
 
 	switch requestPayload.Action {
 	case "auth":
-		app.authenticate(w, requestPayload.Auth)
+		app.auth(w, requestPayload.Auth)
 	case "log":
 		app.logItem(w, requestPayload.Log)
 	case "mail":
@@ -87,7 +87,7 @@ func (app *Config) sendMail(w http.ResponseWriter, mail MailerPayload) {
 	defer response.Body.Close()
 
 	// make sure we get back the right status code
-	if response.StatusCode != http.StatusAccepted {
+	if response.StatusCode != http.StatusOK {
 		app.errorJSON(w, errors.New("error calling mail service"))
 		return
 	}
@@ -122,7 +122,7 @@ func (app *Config) logItem(w http.ResponseWriter, entry LogPayload) {
 	}
 	defer response.Body.Close()
 
-	if response.StatusCode != http.StatusAccepted {
+	if response.StatusCode != http.StatusOK {
 		app.errorJSON(w, err)
 		return
 	}
@@ -136,12 +136,12 @@ func (app *Config) logItem(w http.ResponseWriter, entry LogPayload) {
 }
 
 // authenticate calls the authentication microservice and sends back the appropriate response
-func (app *Config) authenticate(w http.ResponseWriter, a AuthPayload) {
+func (app *Config) auth(w http.ResponseWriter, a AuthPayload) {
 	// create some json we'll send to the auth microservice
 	jsonData, _ := json.MarshalIndent(a, "", "\t")
 
 	// call the service
-	request, err := http.NewRequest("POST", "http://authentication-service/authenticate", bytes.NewBuffer(jsonData))
+	request, err := http.NewRequest("POST", "http://auth-service/authenticate", bytes.NewBuffer(jsonData))
 	if err != nil {
 		app.errorJSON(w, err)
 		return
@@ -159,7 +159,7 @@ func (app *Config) authenticate(w http.ResponseWriter, a AuthPayload) {
 	if response.StatusCode == http.StatusUnauthorized {
 		app.errorJSON(w, errors.New("invalid credentials"))
 		return
-	} else if response.StatusCode != http.StatusAccepted {
+	} else if response.StatusCode != http.StatusOK {
 		app.errorJSON(w, errors.New("error calling auth service"))
 		return
 	}
