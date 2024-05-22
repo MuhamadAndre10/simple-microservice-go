@@ -78,8 +78,11 @@ func (m *Mail) SendSMTPMessage(msg Message) error {
 	email.SetBody(mail.TextPlain, plainMessage)
 	email.AddAlternative(mail.TextHTML, formattedMessage)
 
-	for _, mail := range msg.Attachments {
-		email.Attach(mail)
+	// check Attachments
+	if len(msg.Attachments) > 0 {
+		for _, x := range msg.Attachments {
+			email.Attach(x)
+		}
 	}
 
 	// if len(msg.Attachments) > 0 {
