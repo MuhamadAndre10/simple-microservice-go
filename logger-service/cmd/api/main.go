@@ -48,6 +48,10 @@ func main() {
 
 	//go app.serve()
 
+	// start the gRPC server
+	go app.gRrcListen()
+
+	// start the web server
 	srv := &http.Server{
 		Addr:    fmt.Sprintf(":%s", webPort),
 		Handler: app.routes(),
