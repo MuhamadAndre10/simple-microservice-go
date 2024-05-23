@@ -60,6 +60,13 @@ services:
       MAIL_PASSWORD: ''
       MAIL_NAME: 'john doe'
       MAIL_ADDRESS: 'andrepriyanto95@gmail.com'
+  listener-service:
+    build:
+      context: .
+      dockerfile: listener-service/Dockerfile
+    deploy:
+      mode: replicated
+      replicas: 1
   postgres:
     image: 'postgres:14.2'
     ports:
@@ -108,3 +115,16 @@ services:
       MP_DATABASE: /data/mailpit.db
       MP_SMTP_AUTH_ACCEPT_ANY: 1
       MP_SMTP_AUTH_ALLOW_INSECURE: 1
+  rabbitmq:
+    image: 'rabbitmq:3-management'
+    ports:
+      - "5672:5672"
+      - "15672:15672"
+    deploy:
+      mode: replicated
+      replicas: 1
+    environment:
+      RABBITMQ_DEFAULT_USER: rabbitmq
+      RABBITMQ_DEFAULT_PASS: pass
+    volumes:
+      - ./db-data/rabbitmq/:/var/lib/rabbitmq/
