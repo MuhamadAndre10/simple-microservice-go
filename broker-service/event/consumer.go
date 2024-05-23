@@ -91,6 +91,8 @@ func handlePayload(payload Payload) {
 		if err != nil {
 			fmt.Println(err)
 		}
+	case "auth":
+
 	default:
 		err := logEvent(payload)
 		if err != nil {
