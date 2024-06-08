@@ -1,5 +1,7 @@
 ## Go Simple Microservice
-Mempelajari konsep microservice dengan go, dan komunikasi antar service menggunakan message broker dan grpc serta menggunakan docker serbagai servernya.
+Learning konsep microservice dengan go, dan komunikasi antar service menggunakan message broker, grpc, rest, dan docker.
+
+
 
 ### Services
 | Service name     | Description                |
