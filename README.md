@@ -1,7 +1,7 @@
 ## Go Simple Microservice
 Learning konsep microservice dengan go, dan komunikasi antar service menggunakan message broker, grpc, rest, dan docker.
 
-
+![image](https://github.com/MuhamadAndre10/simple-microservice-go/blob/main/usecase_diagram.png?raw=true)
 
 ### Services
 | Service name     | Description                |
