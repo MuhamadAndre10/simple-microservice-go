@@ -1,4 +1,4 @@
-## Go Simple Microservice
+## Go Simple Microservice 🧩
 Learning konsep microservice dengan go, dan komunikasi antar service menggunakan message broker, grpc, rest, dan docker.
 
 ![image](https://github.com/MuhamadAndre10/simple-microservice-go/blob/main/usecase_diagram.png?raw=true)
@@ -13,11 +13,5 @@ Learning konsep microservice dengan go, dan komunikasi antar service menggunakan
 | Mail Service     | service for send email     |
 | Front end        | front end to test service  |
 
-### Getting Started
-1. clone repository
-2. `go mod tidy` for all service
-3. run `make up_build`
-4. run `make build_front`
-5. run `make start`
-
+> Keep learning... 🍵
 
